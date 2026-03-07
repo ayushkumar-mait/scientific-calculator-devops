@@ -61,9 +61,9 @@ pipeline {
     Job Name: ${env.JOB_NAME}
     Build Number: ${env.BUILD_NUMBER}
     Check console output at: ${env.BUILD_URL}
-    """,
-    to: "ayush81080@gmail.com"
-   )
+    """
+   ),
+   to: "ayush81080@gmail.com"
   }
 
   failure {
@@ -75,9 +75,9 @@ pipeline {
     Job Name: ${env.JOB_NAME}
     Build Number: ${env.BUILD_NUMBER}
     Check console output at: ${env.BUILD_URL}
-    """,
+    """
+   ),
     to: "ayush81080@gmail.com"
-   )
   }
 
  }
