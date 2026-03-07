@@ -1,17 +1,19 @@
+---
 - hosts: servers
+  become: true
+
   tasks:
 
-  - name: Pull image
+  - name: Pull latest Docker image
     command: docker pull ayush81080/calculator:latest
 
-  - name: Stop old container if running
+  - name: Stop existing calculator container
     command: docker stop calculator
     ignore_errors: yes
 
-  - name: Remove old container
+  - name: Remove old calculator container
     command: docker rm calculator
     ignore_errors: yes
 
-  - name: Run container
+  - name: Run new calculator container
     command: docker run -dit --name calculator ayush81080/calculator:latest
-
