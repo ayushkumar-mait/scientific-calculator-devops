@@ -29,7 +29,10 @@ pipeline {
 
   stage('Docker Login') {
    steps {
-    sh 'echo dckr_pat_JozAIxfei8ksZc9grsukkjf8aAc | docker login -u ayush81080 --password-stdin'
+    withCredentials([string(credentialsId: 'docker-token', variable: 'DOCKER_TOKEN')]) {
+   sh 'echo $DOCKER_TOKEN | docker login -u ayush81080 --password-stdin'
+  }
+
    }
   }
 
