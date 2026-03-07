@@ -63,7 +63,7 @@ pipeline {
     Check console output at: ${env.BUILD_URL}
     """
    ),
-   to: "ayush81080@gmail.com"
+   mail to: "ayush81080@gmail.com"
   }
 
   failure {
@@ -77,7 +77,7 @@ pipeline {
     Check console output at: ${env.BUILD_URL}
     """
    ),
-    to: "ayush81080@gmail.com"
+    mail to: "ayush81080@gmail.com"
   }
 
  }
