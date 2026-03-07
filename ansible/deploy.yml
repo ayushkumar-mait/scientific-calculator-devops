@@ -4,15 +4,11 @@
 
   tasks:
 
-  - name: Pull Docker Image
+  - name: Pull latest Docker image
     command: docker pull ayush81080/calculator:latest
 
-  - name: Stop old container
-    command: docker stop calculator
-    ignore_errors: yes
-
-  - name: Remove old container
-    command: docker rm calculator
+  - name: Remove existing container if present
+    command: docker rm -f calculator
     ignore_errors: yes
 
   - name: Run calculator container
