@@ -30,9 +30,8 @@ pipeline {
   stage('Docker Login') {
    steps {
     withCredentials([string(credentialsId: 'docker-token', variable: 'DOCKER_TOKEN')]) {
-   sh 'echo $DOCKER_TOKEN | docker login -u ayush81080 --password-stdin'
-  }
-
+     sh 'echo $DOCKER_TOKEN | docker login -u ayush81080 --password-stdin'
+    }
    }
   }
 
@@ -56,31 +55,30 @@ pipeline {
    emailext(
     subject: "Jenkins Build SUCCESS: ${env.JOB_NAME}",
     body: """
-    Build completed successfully.
+Build completed successfully.
 
-    Job Name: ${env.JOB_NAME}
-    Build Number: ${env.BUILD_NUMBER}
-    Check console output at: ${env.BUILD_URL}
-    """
-   ),
-   mail to: "ayush81080@gmail.com"
+Job Name: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Console Output: ${env.BUILD_URL}
+""",
+    to: "ayush81080@gmail.com"
+   )
   }
 
   failure {
    emailext(
     subject: "Jenkins Build FAILED: ${env.JOB_NAME}",
     body: """
-    Build failed.
+Build failed.
 
-    Job Name: ${env.JOB_NAME}
-    Build Number: ${env.BUILD_NUMBER}
-    Check console output at: ${env.BUILD_URL}
-    """
-   ),
-    mail to: "ayush81080@gmail.com"
+Job Name: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Console Output: ${env.BUILD_URL}
+""",
+    to: "ayush81080@gmail.com"
+   )
   }
 
  }
 
 }
-
