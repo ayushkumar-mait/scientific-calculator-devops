@@ -1,0 +1,11 @@
+---
+- hosts: servers
+  become: false
+
+  tasks:
+
+  - name: Pull image
+    command: docker pull ayush81080/calculator:latest
+
+  - name: Run container
+    command: docker run -it ayush81080/calculator:latest

@@ -1,0 +1,50 @@
+pipeline {
+
+ agent any
+
+ triggers {
+  pollSCM('* * * * *')
+ }
+
+ stages {
+
+  stage('Clone') {
+   steps {
+    git 'https://github.com/ayushkumar-mait/scientific-calculator-devops.git'
+   }
+  }
+
+  stage('Build') {
+   steps {
+    sh 'g++ src/calculator.cpp -o calculator'
+   }
+  }
+
+  stage('Test') {
+   steps {
+    sh 'g++ tests/test_calculator.cpp -o test'
+    sh './test'
+   }
+  }
+
+  stage('Docker Build') {
+   steps {
+    sh 'docker build -t ayush81080/calculator .'
+   }
+  }
+
+  stage('Docker Push') {
+   steps {
+    sh 'docker push ayush81080/calculator'
+   }
+  }
+
+  stage('Deploy') {
+   steps {
+    sh 'ansible-playbook -i ansible/inventory ansible/deploy.yml'
+   }
+  }
+
+ }
+
+}
