@@ -13,5 +13,5 @@
     ignore_errors: yes
 
   - name: Run container
-    command: docker run -d --name calculator ayush81080/calculator:latest
+    command: docker run -dit --name calculator ayush81080/calculator:latest
 
