@@ -47,35 +47,18 @@ pipeline {
  }
 
  post {
-
-  success {
-   emailext(
-    subject: "Jenkins Build SUCCESS: ${env.JOB_NAME}",
-    body: """
-Build completed successfully.
-
-Job Name: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Console Output: ${env.BUILD_URL}
-""",
-    to: "ayush81080@gmail.com"
-   )
-  }
-
-  failure {
-   emailext(
-    subject: "Jenkins Build FAILED: ${env.JOB_NAME}",
-    body: """
-Build failed.
-
-Job Name: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Console Output: ${env.BUILD_URL}
-""",
-    to: "ayush81080@gmail.com"
-   )
-  }
-
- }
+        success {
+            // Sends an email only if checkout, build, tests, and push all succeed
+            mail to: 'ayush81080@gmail.com',
+                 subject: "SUCCESS: Jenkins Build #${env.BUILD_ID} for SPE-Mini-Project",
+                 body: "Good news! Your Jenkins pipeline successfully built the project, passed all test cases, and pushed the new image to Docker Hub.\n\nCheck the build details here: ${env.BUILD_URL}"
+        }
+        failure {
+            // It's best practice to also know if something broke!
+            mail to: 'ayush81080@gmail.com',
+                 subject: "FAILED: Jenkins Build #${env.BUILD_ID} for SPE-Mini-Project",
+                 body: "The Jenkins pipeline failed. Please check the console logs to see what went wrong:\n\n${env.BUILD_URL}"
+        }
+    }
 
 }
